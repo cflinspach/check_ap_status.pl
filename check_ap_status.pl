@@ -1,4 +1,12 @@
 #!/usr/bin/perl
+# About: Check plugin for icinga2 to check the status of AP's by using SNMP OID's.
+#        This script doesn't have any OID's inorder to make it universal 
+#        Script tested with Meru and Cisco Controllers.
+# Version 1.0
+# Author: Casey Flinspach
+#         cflinspach@gmail.com
+#
+##########################################################################
 use strict;
 use warnings;
 use Net::SNMP;
@@ -14,12 +22,23 @@ my $ap_ip_oid = '';
 my $ap_name_oid = '';
 
 GetOptions(
+        "help|h-" => \my $help,
         "host|H=s" => \$hostaddr,
         "community|C=s" => \$community,
         "crit|c:s" => \$crit,
         "warn|w:s" => \$warn,
         "ap_ip_oid|O=s" => \$ap_ip_oid,
         "ap_name_oid|o=s" => \$ap_name_oid);
+        
+if($help) {
+        help();
+        exit;
+}
+
+
+sub help { print "Usage:\n
+check_ap_status.pl -H [host] -C [community] -c [critical threshold] -w [warning threshold] -O [ap ip oid] -o [ap name oid]\n";
+}
 
 my ($session, $error) = Net::SNMP->session(
                         -hostname => "$hostaddr",
@@ -30,6 +49,7 @@ my ($session, $error) = Net::SNMP->session(
 
 if (!defined($session)) {
         printf("ERROR: %s.\n", $error);
+        help();
         exit 1;
 }
 
