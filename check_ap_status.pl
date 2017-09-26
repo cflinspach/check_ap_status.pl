@@ -1,10 +1,10 @@
 #!/usr/bin/perl
 # About: Check plugin for icinga2 to check the status of AP's by using SNMP OID's.
 #        This script doesn't have any OID's inorder to make it universal 
-#        Script tested with Meru and Cisco Controllers.
-# Version 1.0
+#        Tested with Meru and Cisco Controllers.
+# Version 1.1
 # Author: Casey Flinspach
-#         cflinspach@gmail.com
+#         cflinspach@protonmail.com
 #
 ##########################################################################
 use strict;
@@ -96,13 +96,13 @@ print "Total AP's: $total_ap_count Total UP: $up_count Total Down: $down_count \
 print pairwise { "$a = $b\n" } @ap_name_array, @ap_stat_array;
 
 if ($percent_down < $warn) {
-        print "OK - $percent_up% UP | Down=$percent_down\n";
+        print "OK - $percent_up% UP |'Up'=$up_count 'Down'=$down_count 'Total'=$total_ap_count\n";
         exit 0;
         } elsif ($percent_down >= $warn && $percent_down < $crit ) {
-        print "WARNING - $percent_down% DOWN | Down=$percent_down\n";
+        print "WARNING - $percent_down% DOWN |'Up'=$up_count 'Down'=$down_count 'Total'=$total_ap_count\n";
         exit 1;
         } elsif ($percent_down >= $crit) {
-        print "CRITICAL - $percent_down% DOWN | Down=$percent_down\n";
+        print "CRITICAL - $percent_down% DOWN |'Up'=$up_count 'Down'=$down_count 'Total'=$total_ap_count\n";
         exit 2;
         } else {
         print "UNKNOWN - $err \n";
