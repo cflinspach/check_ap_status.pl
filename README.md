@@ -3,12 +3,12 @@
 Newest version uses historcal files to track Cisco AP's that dissasociate when they lose their heartbeat to the controller.
 
 About: Check plugin for Nagios/Icinga2 to check the status of AP's by using SNMP OID's.
-       This script doesn't have any OID's inorder to make it universal. 
+       This script doesn't have any OID's inorder to make it universal. Warning and critical levels are in percentages. So 	  you'll get a warning if 10% of the AP's are down as an example.
 
 Notes: Change line 26 to change where the AP-status tracker files are stored. 
-	   These files keep track of Cisco AP's that may dissassociate for 20 days. 
-	   Default is '/usr/share/ap-status/'.
-	   Currently it's /usr/share/ap-status/ .
+       These files keep track of Cisco AP's that may dissassociate for 20 days. 
+       Default is '/usr/share/ap-status/'.
+       Currently it's /usr/share/ap-status/ .
 
 Usage:
 check_ap_status.pl -H [host] -C [community] -c [critical threshold] -w [warning threshold] -O [ap ip oid] -o [ap name oid]
